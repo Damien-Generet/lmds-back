@@ -10,7 +10,24 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_06_04_122625) do
+ActiveRecord::Schema[7.1].define(version: 2024_06_04_160034) do
+  create_table "events", force: :cascade do |t|
+    t.integer "creator_id"
+    t.string "category"
+    t.string "instrument"
+    t.integer "level"
+    t.integer "price"
+    t.datetime "start_date"
+    t.integer "duration"
+    t.text "description"
+    t.string "location"
+    t.integer "available_seats"
+    t.integer "max_seats"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["creator_id"], name: "index_events_on_creator_id"
+  end
+
   create_table "jwt_denylist", force: :cascade do |t|
     t.string "jti", null: false
     t.datetime "exp", null: false
@@ -31,4 +48,5 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_04_122625) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "events", "users", column: "creator_id"
 end
